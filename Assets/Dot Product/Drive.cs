@@ -68,6 +68,9 @@ public class Drive : MonoBehaviour {
         // Fuel position
         Vector3 fP = fuel.transform.position;
 
+
+        // 三平方の定理を利用した座標と座標の２点間の距離の算出
+        // 3次元の座標であることを考慮すること(状況によっては、お互いのz座標を合わせてから計算する必要があるかもしれない)
         // Calculate the distance using pythagoras
         float distance = Mathf.Sqrt(Mathf.Pow(tP.x - fP.x, 2.0f) +
                          Mathf.Pow(tP.y - fP.y, 2.0f) +
