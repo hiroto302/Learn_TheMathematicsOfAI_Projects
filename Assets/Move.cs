@@ -2,14 +2,15 @@
 
 public class Move : MonoBehaviour {
 
-    Vector3 goal = new Vector3(5, 0, 4);
+    public Vector3 goal = new Vector3(5, 0, 4);
+    public float speed = 5.0f;
 
     void Start() {
-
-        this.transform.Translate(goal);
+        
     }
 
     void Update() {
-
+        // goal の方向に speed で移動
+        this.transform.Translate(goal.normalized * speed  * Time.deltaTime);
     }
 }
