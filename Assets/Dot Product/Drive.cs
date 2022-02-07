@@ -14,6 +14,7 @@ public class Drive : MonoBehaviour {
 
     }
 
+    // 内積を用いて、タンクが向いている正面方向と、タンクから見た燃料の方向の２つのベクトルからなす角を計算する
     // Calculate the vector to the fuel
     void CalculateAngle() {
 
@@ -24,6 +25,8 @@ public class Drive : MonoBehaviour {
 
         // Calculate the dot product
         float dot = tF.x * fD.x + tF.y * fD.y;
+        // アークコサイン(逆関数) から角度を得る
+        // 返り値は、radian(弧度法) なので angle に変換する必要性があるかもしれない
         float angle = Mathf.Acos(dot / (tF.magnitude * fD.magnitude));
 
         // Output the angle to the console
