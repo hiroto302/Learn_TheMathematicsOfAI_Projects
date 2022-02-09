@@ -26,10 +26,11 @@ public class Drive : MonoBehaviour {
         // Calculate the dot product
         float dot = tF.x * fD.x + tF.y * fD.y;
         // アークコサイン(逆関数) から角度を得る
-        // 返り値は、radian(弧度法) なので angle に変換する必要性があるかもしれない
+        // 返り値は、radian(弧度法) なので angle(degree) に変換する必要性があるかもしれない
         float angle = Mathf.Acos(dot / (tF.magnitude * fD.magnitude));
 
         // Output the angle to the console
+        // radian を degree に変換
         Debug.Log("Angle: " + angle * Mathf.Rad2Deg);
         // Output Unitys angle
         Debug.Log("Unity Angle: " + Vector3.Angle(tF, fD));
@@ -39,20 +40,27 @@ public class Drive : MonoBehaviour {
         // Draw a ray showing the vector to the fuel
         Debug.DrawRay(this.transform.position, fD, Color.red, 2.0f);
 
+        // 獲得した法線が 上向き or 下向きかで 回転させる方向を判断する
         int clockwise = 1;
 
         // Check the z value of the crossproduct and negate the direction if less than 0
+        // 0 より低い時、fuel は angle 分 時計回りした方向にあることがわかる
         if (Cross(tF, fD).z < 0.0f)
             clockwise = -1;
 
         // Use Unity to work out the angle for you
+        // 上記でやってきたことを、下記の式一発で求めることができる
         float unityAngle = Vector3.SignedAngle(tF, fD, this.transform.forward);
 
         // Get the tank to face the fuel
+        // 第三引数に入る値がによって、回転が 時計回り(正) or 反時計回り(負) か決定する
+        // this.transform.Rotate(0, 0, angle * Mathf.Rad2Deg * clockwise);
+
         this.transform.Rotate(0.0f, 0.0f, unityAngle);
     }
 
     // Calculate the Cross Product
+    // 外積の計算により法線ベクトルを取得
     Vector3 Cross(Vector3 v, Vector3 w) {
 
         float xMult = v.y * w.z - v.z * w.y;
